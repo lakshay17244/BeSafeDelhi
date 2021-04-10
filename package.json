@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "main": "dist/index.js",
   "private": true,
-  "homepage": "https://demos.creative-tim.com/now-ui-dashboard-react/#/",
+  "homepage": "https://besafedelhi.netlify.app",
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "4.5.0",
