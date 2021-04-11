@@ -12,6 +12,7 @@
     "gulp-append-prepend": "1.0.8",
     "history": "4.10.1",
     "leaflet": "^1.7.1",
+    "lodash": "^4.17.21",
     "node-sass": "4.14.1",
     "perfect-scrollbar": "1.5.0",
     "react": "16.13.1",

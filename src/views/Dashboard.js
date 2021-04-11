@@ -65,7 +65,28 @@ class Dashboard extends React.Component {
         />
         <div className="content">
           <Row>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={12}>
+              <Card className="card-chart">
+                <CardHeader>
+                  <h5 className="card-category">Crime Statistics</h5>
+                  <CardTitle tag="h4">Crime By Categories</CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <div className="chart-area">
+                    <Bar
+                      data={dashboard24HoursPerformanceChart.data}
+                      options={dashboard24HoursPerformanceChart.options}
+                    />
+                  </div>
+                </CardBody>
+                <CardFooter>
+                  <div className="stats">
+                    <i className="now-ui-icons arrows-1_refresh-69" /> Just Updated
+                  </div>
+                </CardFooter>
+              </Card>
+            </Col>
+            <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
                   <h5 className="card-category">Global Sales</h5>
@@ -103,7 +124,7 @@ class Dashboard extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
                   <h5 className="card-category">2020 Sales</h5>
@@ -137,27 +158,6 @@ class Dashboard extends React.Component {
                   <div className="stats">
                     <i className="now-ui-icons arrows-1_refresh-69" /> Just
                     Updated
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col xs={12} md={4}>
-              <Card className="card-chart">
-                <CardHeader>
-                  <h5 className="card-category">Email Statistics</h5>
-                  <CardTitle tag="h4">24 Hours Performance</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <div className="chart-area">
-                    <Bar
-                      data={dashboard24HoursPerformanceChart.data}
-                      options={dashboard24HoursPerformanceChart.options}
-                    />
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div className="stats">
-                    <i className="now-ui-icons ui-2_time-alarm" /> Last 7 days
                   </div>
                 </CardFooter>
               </Card>

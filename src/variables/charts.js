@@ -14,10 +14,13 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
+
+
 */
 // ##############################
 // // // Function that converts a hex color number to a RGB color number
 // #############################
+
 function hexToRGB(hex, alpha) {
   var r = parseInt(hex.slice(1, 3), 16),
     g = parseInt(hex.slice(3, 5), 16),
@@ -167,7 +170,7 @@ const dashboardPanelChart = {
       ],
       datasets: [
         {
-          label: "Data",
+          label: "Total Crimes",
           borderColor: chartColor,
           pointBorderColor: chartColor,
           pointBackgroundColor: "#2c2c2c",
@@ -259,21 +262,20 @@ const dashboardShippedProductsChart = {
     var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+    const fullData = require('../data')
+    var _ = require('lodash');
+    let crimeCountsTemp = _.groupBy(fullData, el => el.Crime)
+    let crimeTypes = []
+    let crimeCounts = [];
+    Object.keys(crimeCountsTemp).forEach(key => {
+      crimeCounts.push(crimeCountsTemp[key].length)
+      crimeTypes.push(key)
+    }
+    );
+    console.log(crimeTypes)
+    console.log(crimeCounts)
     return {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      labels: crimeTypes,
       datasets: [
         {
           label: "Active Users",
@@ -287,7 +289,7 @@ const dashboardShippedProductsChart = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630],
+          data: crimeCounts,
         },
       ],
     };
@@ -337,31 +339,46 @@ const dashboardAllProductsChart = {
 
 const dashboard24HoursPerformanceChart = {
   data: (canvas) => {
+
+    // var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+    // gradientStroke.addColorStop(0, "#80b6f4");
+    // gradientStroke.addColorStop(1, chartColor);
+
     var ctx = canvas.getContext("2d");
-    var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+    var gradientFill = ctx.createLinearGradient(0, 300, 0, 50);
+
+    // RED
+    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    // gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+
+    // BLUE
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
+
+    const fullData = require('../data')
+    var _ = require('lodash');
+    let crimeCountsTemp = _.groupBy(fullData, el => el.Crime)
+    let crimeTypes = []
+    let crimeCounts = [];
+    Object.keys(crimeCountsTemp).forEach(key => {
+      if (key !== 'arrested') {
+        crimeCounts.push(crimeCountsTemp[key].length)
+        crimeTypes.push(_.startCase(_.toLower(key)))
+      }
+    }
+    );
     return {
-      labels: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ],
+      labels: crimeTypes,
       datasets: [
         {
           label: "Active Countries",
           backgroundColor: gradientFill,
+          // BLUE
           borderColor: "#2CA8FF",
           pointBorderColor: "#FFF",
+          // RED
+          // borderColor: "#f96332",
+          // pointBackgroundColor: "#f96332",
           pointBackgroundColor: "#2CA8FF",
           pointBorderWidth: 2,
           pointHoverRadius: 4,
@@ -369,7 +386,7 @@ const dashboard24HoursPerformanceChart = {
           pointRadius: 4,
           fill: true,
           borderWidth: 1,
-          data: [80, 99, 86, 96, 123, 85, 100, 75, 88, 90, 123, 155],
+          data: crimeCounts,
         },
       ],
     };
