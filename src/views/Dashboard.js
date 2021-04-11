@@ -44,10 +44,10 @@ import {
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
 import {
+  dashboard24HoursPerformanceChart,
   dashboardPanelChart,
   dashboardShippedProductsChart,
   dashboardAllProductsChart,
-  dashboard24HoursPerformanceChart,
 } from "variables/charts.js";
 
 class Dashboard extends React.Component {
