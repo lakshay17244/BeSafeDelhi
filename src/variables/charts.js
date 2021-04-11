@@ -520,9 +520,14 @@ const dashboard24HoursPerformanceChart = {
   },
 };
 
-module.exports = {
-  dashboardPanelChart, // Chart for Dashboard view - Will be rendered in panel
-  dashboardShippedProductsChart, // Chart for Dashboard view - Shipped Products Card
-  dashboardAllProductsChart, // Chart for Dashboard view - All products Card
-  dashboard24HoursPerformanceChart, // Chart for Dashboard view - 24 Hours Performance Card
-};
+// module.exports = {
+//   dashboardPanelChart, // Chart for Dashboard view - Will be rendered in panel
+//   dashboardShippedProductsChart, // Chart for Dashboard view - Shipped Products Card
+//   dashboardAllProductsChart, // Chart for Dashboard view - All products Card
+//   dashboard24HoursPerformanceChart, // Chart for Dashboard view - 24 Hours Performance Card
+// };
+
+module.exports.dashboardPanelChart = dashboardPanelChart
+module.exports.dashboardShippedProductsChart = dashboardShippedProductsChart
+module.exports.dashboardAllProductsChart = dashboardAllProductsChart
+module.exports.dashboard24HoursPerformanceChart = dashboard24HoursPerformanceChart
