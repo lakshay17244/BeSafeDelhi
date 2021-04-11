@@ -431,12 +431,12 @@ const dashboard24HoursPerformanceChart = {
     var gradientFill = ctx.createLinearGradient(0, 300, 0, 50);
 
     // RED
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    // gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
 
     // BLUE
-    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    // gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
 
     const fullData = require('../data')
     var _ = require('lodash');
@@ -444,22 +444,24 @@ const dashboard24HoursPerformanceChart = {
     let crimeTypes = []
     let crimeCounts = [];
     Object.keys(crimeCountsTemp).forEach(key => {
-      crimeCounts.push(crimeCountsTemp[key].length)
-      crimeTypes.push(_.startCase(_.toLower(key)))
+      if (key !== 'arrested') {
+        crimeCounts.push(crimeCountsTemp[key].length)
+        crimeTypes.push(_.startCase(_.toLower(key)))
+      }
     }
     );
     return {
       labels: crimeTypes,
       datasets: [
         {
-          label: "Crime Count",
+          label: "Active Countries",
           backgroundColor: gradientFill,
           // BLUE
-          // borderColor: "#2CA8FF",
-          // pointBorderColor: "#FFF",
+          borderColor: "#2CA8FF",
+          pointBorderColor: "#FFF",
           // RED
-          borderColor: "#f96332",
-          pointBackgroundColor: "#f96332",
+          // borderColor: "#f96332",
+          // pointBackgroundColor: "#f96332",
           pointBackgroundColor: "#2CA8FF",
           pointBorderWidth: 2,
           pointHoverRadius: 4,
@@ -520,14 +522,9 @@ const dashboard24HoursPerformanceChart = {
   },
 };
 
-// module.exports = {
-//   dashboardPanelChart, // Chart for Dashboard view - Will be rendered in panel
-//   dashboardShippedProductsChart, // Chart for Dashboard view - Shipped Products Card
-//   dashboardAllProductsChart, // Chart for Dashboard view - All products Card
-//   dashboard24HoursPerformanceChart, // Chart for Dashboard view - 24 Hours Performance Card
-// };
-
-module.exports.dashboardPanelChart = dashboardPanelChart
-module.exports.dashboardShippedProductsChart = dashboardShippedProductsChart
-module.exports.dashboardAllProductsChart = dashboardAllProductsChart
-module.exports.dashboard24HoursPerformanceChart = dashboard24HoursPerformanceChart
+module.exports = {
+  dashboardPanelChart, // Chart for Dashboard view - Will be rendered in panel
+  dashboardShippedProductsChart, // Chart for Dashboard view - Shipped Products Card
+  dashboardAllProductsChart, // Chart for Dashboard view - All products Card
+  dashboard24HoursPerformanceChart, // Chart for Dashboard view - 24 Hours Performance Card
+};
