@@ -112,7 +112,7 @@ class Dashboard extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
-                    <Line
+                    <Bar
                       data={dashboardShippedProductsChart.data}
                       options={dashboardShippedProductsChart.options}
                     />
@@ -130,8 +130,8 @@ class Dashboard extends React.Component {
             <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">{new Date().toLocaleDateString()}</h5>
-                  <CardTitle tag="h4">Realtime Tweets</CardTitle>
+                  <h5 className="card-category">Daywise Analysis</h5>
+                  <CardTitle tag="h4">Tweets Last Week</CardTitle>
                   <UncontrolledDropdown>
                     <DropdownToggle
                       className="btn-round btn-outline-default btn-icon"

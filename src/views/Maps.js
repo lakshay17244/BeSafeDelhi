@@ -5281,10 +5281,11 @@ const circleColour = redfill
 const circleHighlight = highlightred
 
 const FullScreenMap = () => {
-
+  console.log(fullData)
   const [Data, SetData] = useState([])
 
   useEffect(() => {
+    
     let newData = _.groupBy(fullData, el => el.Locations);
     const objArray = [];
     Object.keys(newData).forEach(key => objArray.push({

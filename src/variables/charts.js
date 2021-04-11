@@ -144,6 +144,33 @@ var gradientChartOptionsConfigurationWithNumbersAndGrid = {
 
 const dashboardPanelChart = {
   data: (canvas) => {
+    const fullData = require('../data')
+    var _ = require('lodash');
+    const moment = require('moment')
+    console.log('===', fullData)
+    const monthName = item => moment(item['Created At']).format('MMMM, YYYY');
+    const result = _.groupBy(fullData, monthName);
+
+    const monthlyTweets = [];
+    Object.keys(result).forEach(key => monthlyTweets.push({
+      date: key,
+      Tweets: result[key].length
+    }));
+
+    monthlyTweets.sort((a, b) => {
+      var dateA = new Date(a.date), dateB = new Date(b.date)
+      return dateA - dateB
+    });
+
+    let months = []
+    let numberOfTweets = []
+
+    monthlyTweets.forEach(el => {
+      // let quarter = moment(el.date).utc().quarter() + moment(el.date).format(', YYYY')
+      months.push(el.date)
+      numberOfTweets.push(el.Tweets)
+    })
+
     const ctx = canvas.getContext("2d");
     var chartColor = "#FFFFFF";
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
@@ -154,20 +181,7 @@ const dashboardPanelChart = {
     gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.14)");
 
     return {
-      labels: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
-      ],
+      labels: months.slice(Math.max(months.length - 12, 0)),
       datasets: [
         {
           label: "Total Crimes",
@@ -183,7 +197,7 @@ const dashboardPanelChart = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [50, 150, 100, 190, 130, 90, 150, 160, 120, 140, 190, 95],
+          data: numberOfTweets.slice(Math.max(numberOfTweets.length - 12, 0)),
         },
       ],
     };
@@ -262,20 +276,51 @@ const dashboardShippedProductsChart = {
     var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+    
+    
     const fullData = require('../data')
     var _ = require('lodash');
-    let crimeCountsTemp = _.groupBy(fullData, el => el.Crime)
-    let crimeTypes = []
-    let crimeCounts = [];
-    Object.keys(crimeCountsTemp).forEach(key => {
-      crimeCounts.push(crimeCountsTemp[key].length)
-      crimeTypes.push(key)
-    }
-    );
-    console.log(crimeTypes)
-    console.log(crimeCounts)
+    const result = _.groupBy(fullData, el => el.Locations);
+
+    const monthlyTweets = [];
+    Object.keys(result).forEach(key => monthlyTweets.push({
+      location: key,
+      Tweets: result[key].length
+    }));
+
+    monthlyTweets.sort((a, b) => {
+      return b.Tweets - a.Tweets
+    });
+
+    let months = []
+    let numberOfTweets = []
+
+    monthlyTweets.forEach(el => {
+      months.push(_.startCase(_.toLower(el.location.slice(0,-12))))
+      numberOfTweets.push(el.Tweets)
+    })
+    months = months.slice(0,7)
+    numberOfTweets = numberOfTweets.slice(0,7)
+
+    // const fullData = require('../data')
+    // var _ = require('lodash');
+    // let crimeCountsTemp = _.groupBy(fullData, el => el.Locations)
+    // let crimeTypes = []
+    // let crimeCounts = [];
+    // Object.keys(crimeCountsTemp).forEach(key => {
+    //   crimeCounts.push(crimeCountsTemp[key].length)
+    //   crimeTypes.push(key)
+    // }
+    // );
+
+
+    // crimeTypes = crimeTypes.slice(Math.max(crimeTypes.length - 7, 0))
+    // crimeCounts = crimeCounts.slice(Math.max(crimeCounts.length - 7, 0))
+
+    // console.log(crimeTypes)
+    // console.log(crimeCounts)
     return {
-      labels: crimeTypes,
+      labels: months,
       datasets: [
         {
           label: "Active Users",
@@ -289,7 +334,7 @@ const dashboardShippedProductsChart = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: crimeCounts,
+          data: numberOfTweets,
         },
       ],
     };
@@ -310,8 +355,38 @@ const dashboardAllProductsChart = {
     var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
     gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     gradientFill.addColorStop(1, hexToRGB("#18ce0f", 0.4));
+
+    const fullData = require('../data')
+    var _ = require('lodash');
+    const moment = require('moment')
+    console.log('===', fullData)
+    const monthName = item => moment(item['Created At']).format('ll');
+    const result = _.groupBy(fullData, monthName);
+
+    const monthlyTweets = [];
+    Object.keys(result).forEach(key => monthlyTweets.push({
+      date: key,
+      Tweets: result[key].length
+    }));
+
+    monthlyTweets.sort((a, b) => {
+      var dateA = new Date(a.date), dateB = new Date(b.date)
+      return dateA - dateB
+    });
+
+    let months = []
+    let numberOfTweets = []
+
+    monthlyTweets.forEach(el => {
+      // let quarter = moment(el.date).utc().quarter() + moment(el.date).format(', YYYY')
+      months.push(el.date)
+      numberOfTweets.push(el.Tweets)
+    })
+    months = months.slice(Math.max(months.length - 7, 0))
+    numberOfTweets = numberOfTweets.slice(Math.max(numberOfTweets.length - 7, 0))
+
     return {
-      labels: ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"],
+      labels: months,
       datasets: [
         {
           label: "Tweets",
@@ -325,7 +400,7 @@ const dashboardAllProductsChart = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [40, 30, 55, 20, 12, 34, 49, 27],
+          data: numberOfTweets,
         },
       ],
     };
@@ -348,12 +423,12 @@ const dashboard24HoursPerformanceChart = {
     var gradientFill = ctx.createLinearGradient(0, 300, 0, 50);
 
     // RED
-    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    // gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
 
     // BLUE
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
+    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    // gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
 
     const fullData = require('../data')
     var _ = require('lodash');
@@ -361,24 +436,22 @@ const dashboard24HoursPerformanceChart = {
     let crimeTypes = []
     let crimeCounts = [];
     Object.keys(crimeCountsTemp).forEach(key => {
-      if (key !== 'arrested') {
-        crimeCounts.push(crimeCountsTemp[key].length)
-        crimeTypes.push(_.startCase(_.toLower(key)))
-      }
+      crimeCounts.push(crimeCountsTemp[key].length)
+      crimeTypes.push(_.startCase(_.toLower(key)))
     }
     );
     return {
       labels: crimeTypes,
       datasets: [
         {
-          label: "Active Countries",
+          label: "Crime Count",
           backgroundColor: gradientFill,
           // BLUE
-          borderColor: "#2CA8FF",
-          pointBorderColor: "#FFF",
+          // borderColor: "#2CA8FF",
+          // pointBorderColor: "#FFF",
           // RED
-          // borderColor: "#f96332",
-          // pointBackgroundColor: "#f96332",
+          borderColor: "#f96332",
+          pointBackgroundColor: "#f96332",
           pointBackgroundColor: "#2CA8FF",
           pointBorderWidth: 2,
           pointHoverRadius: 4,
