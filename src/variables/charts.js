@@ -431,12 +431,12 @@ const dashboard24HoursPerformanceChart = {
     var gradientFill = ctx.createLinearGradient(0, 300, 0, 50);
 
     // RED
-    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    // gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
 
     // BLUE
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
+    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    // gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
 
     const fullData = require('../data')
     var _ = require('lodash');
@@ -444,25 +444,23 @@ const dashboard24HoursPerformanceChart = {
     let crimeTypes = []
     let crimeCounts = [];
     Object.keys(crimeCountsTemp).forEach(key => {
-      if (key !== 'arrested') {
-        crimeCounts.push(crimeCountsTemp[key].length)
-        crimeTypes.push(_.startCase(_.toLower(key)))
-      }
+      crimeCounts.push(crimeCountsTemp[key].length)
+      crimeTypes.push(_.startCase(_.toLower(key)))
     }
     );
     return {
       labels: crimeTypes,
       datasets: [
         {
-          label: "Active Countries",
+          label: "Crime Count",
           backgroundColor: gradientFill,
           // BLUE
-          borderColor: "#2CA8FF",
+          // borderColor: "#2CA8FF",
           pointBorderColor: "#FFF",
           // RED
-          // borderColor: "#f96332",
-          // pointBackgroundColor: "#f96332",
-          pointBackgroundColor: "#2CA8FF",
+          borderColor: "#f96332",
+          pointBackgroundColor: "#f96332",
+          // pointBackgroundColor: "#2CA8FF",
           pointBorderWidth: 2,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 1,
