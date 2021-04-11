@@ -86,11 +86,13 @@ class Dashboard extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
+           
+           
             <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Global Sales</h5>
-                  <CardTitle tag="h4">Shipped Products</CardTitle>
+                  <h5 className="card-category">Tweets</h5>
+                  <CardTitle tag="h4">Category-wise Tweets</CardTitle>
                   <UncontrolledDropdown>
                     <DropdownToggle
                       className="btn-round btn-outline-default btn-icon"
@@ -124,11 +126,12 @@ class Dashboard extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
+
             <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">2020 Sales</h5>
-                  <CardTitle tag="h4">All products</CardTitle>
+                  <h5 className="card-category">{new Date().toLocaleDateString()}</h5>
+                  <CardTitle tag="h4">Realtime Tweets</CardTitle>
                   <UncontrolledDropdown>
                     <DropdownToggle
                       className="btn-round btn-outline-default btn-icon"
@@ -162,9 +165,12 @@ class Dashboard extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
+          
+          
           </Row>
           <Row>
-            <Col xs={12} md={6}>
+            
+            {/* <Col xs={12} md={6}>
               <Card className="card-tasks">
                 <CardHeader>
                   <h5 className="card-category">Backend Development</h5>
@@ -372,6 +378,8 @@ class Dashboard extends React.Component {
                 </CardBody>
               </Card>
             </Col>
+           */}
+          
           </Row>
         </div>
       </>

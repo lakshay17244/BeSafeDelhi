@@ -314,7 +314,7 @@ const dashboardAllProductsChart = {
       labels: ["12pm,", "3pm", "6pm", "9pm", "12am", "3am", "6am", "9am"],
       datasets: [
         {
-          label: "Email Stats",
+          label: "Tweets",
           borderColor: "#18ce0f",
           pointBorderColor: "#FFF",
           pointBackgroundColor: "#18ce0f",
@@ -325,7 +325,7 @@ const dashboardAllProductsChart = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [40, 500, 650, 700, 1200, 1250, 1300, 1900],
+          data: [40, 30, 55, 20, 12, 34, 49, 27],
         },
       ],
     };
