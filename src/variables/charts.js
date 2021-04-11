@@ -147,7 +147,7 @@ const dashboardPanelChart = {
     const fullData = require('../data')
     var _ = require('lodash');
     const moment = require('moment')
-    console.log('===', fullData)
+    // console.log('===', fullData)
     const monthName = item => moment(item['Created At']).format('MMMM, YYYY');
     const result = _.groupBy(fullData, monthName);
 
@@ -270,14 +270,21 @@ const dashboardPanelChart = {
 const dashboardShippedProductsChart = {
   data: (canvas) => {
     var ctx = canvas.getContext("2d");
+    var gradientFill = ctx.createLinearGradient(0, 300, 0, 50);
+    // var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+    // BLUE
+    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
+
+    // var ctx = canvas.getContext("2d");
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
     gradientStroke.addColorStop(0, "#80b6f4");
     gradientStroke.addColorStop(1, chartColor);
-    var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
     
-    
+    // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+    // gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
+
+
     const fullData = require('../data')
     var _ = require('lodash');
     const result = _.groupBy(fullData, el => el.Locations);
@@ -296,11 +303,11 @@ const dashboardShippedProductsChart = {
     let numberOfTweets = []
 
     monthlyTweets.forEach(el => {
-      months.push(_.startCase(_.toLower(el.location.slice(0,-12))))
+      months.push(_.startCase(_.toLower(el.location.slice(0, -12))))
       numberOfTweets.push(el.Tweets)
     })
-    months = months.slice(0,7)
-    numberOfTweets = numberOfTweets.slice(0,7)
+    months = months.slice(0, 7)
+    numberOfTweets = numberOfTweets.slice(0, 7)
 
     // const fullData = require('../data')
     // var _ = require('lodash');
@@ -323,8 +330,9 @@ const dashboardShippedProductsChart = {
       labels: months,
       datasets: [
         {
-          label: "Active Users",
-          borderColor: "#f96332",
+          label: "Tweets",
+          // borderColor: "#f96332",
+          borderColor: "#2CA8FF",
           pointBorderColor: "#FFF",
           pointBackgroundColor: "#f96332",
           pointBorderWidth: 2,
@@ -339,7 +347,7 @@ const dashboardShippedProductsChart = {
       ],
     };
   },
-  options: gradientChartOptionsConfiguration,
+  options: gradientChartOptionsConfigurationWithNumbersAndGrid,
 };
 
 // ##############################
@@ -359,7 +367,7 @@ const dashboardAllProductsChart = {
     const fullData = require('../data')
     var _ = require('lodash');
     const moment = require('moment')
-    console.log('===', fullData)
+    // console.log('===', fullData)
     const monthName = item => moment(item['Created At']).format('ll');
     const result = _.groupBy(fullData, monthName);
 

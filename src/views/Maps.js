@@ -5281,7 +5281,7 @@ const circleColour = redfill
 const circleHighlight = highlightred
 
 const FullScreenMap = () => {
-  console.log(fullData)
+  // console.log(fullData)
   const [Data, SetData] = useState([])
 
   useEffect(() => {
@@ -5306,7 +5306,7 @@ const FullScreenMap = () => {
         <Row>
           <Col xs={12}>
             <Card>
-              <CardHeader>Google Maps</CardHeader>
+              <CardHeader className='text-center text-muted'>Delhi-NCR Crime Heatmap</CardHeader>
               <CardBody>
                 <div>
                   <MapContainer style={{ height: "600px" }} center={[28.692333, 77.238970]} zoom={11} scrollWheelZoom={false}>
@@ -5336,10 +5336,10 @@ const FullScreenMap = () => {
                                 {
                                   crimeCounts.map((el, ind) => {
                                     return (
-                                      <>
+                                      <div key={ind}>
                                         {_.startCase(_.toLower(el.crimeType))} - {el.crimeReport}
                                         <br />
-                                      </>
+                                      </div>
                                     )
                                   })
                                 }

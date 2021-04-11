@@ -91,9 +91,9 @@ class Dashboard extends React.Component {
             <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Tweets</h5>
-                  <CardTitle tag="h4">Category-wise Tweets</CardTitle>
-                  <UncontrolledDropdown>
+                  <h5 className="card-category">Number of tweets</h5>
+                  <CardTitle tag="h4">Top 10 Crime Hotspots</CardTitle>
+                  {/* <UncontrolledDropdown>
                     <DropdownToggle
                       className="btn-round btn-outline-default btn-icon"
                       color="default"
@@ -108,7 +108,7 @@ class Dashboard extends React.Component {
                         Remove data
                       </DropdownItem>
                     </DropdownMenu>
-                  </UncontrolledDropdown>
+                  </UncontrolledDropdown> */}
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
@@ -132,7 +132,7 @@ class Dashboard extends React.Component {
                 <CardHeader>
                   <h5 className="card-category">Daywise Analysis</h5>
                   <CardTitle tag="h4">Tweets Last Week</CardTitle>
-                  <UncontrolledDropdown>
+                  {/* <UncontrolledDropdown>
                     <DropdownToggle
                       className="btn-round btn-outline-default btn-icon"
                       color="default"
@@ -147,7 +147,7 @@ class Dashboard extends React.Component {
                         Remove data
                       </DropdownItem>
                     </DropdownMenu>
-                  </UncontrolledDropdown>
+                  </UncontrolledDropdown> */}
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
