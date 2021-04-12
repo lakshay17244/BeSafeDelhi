@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
               <Card className="card-chart">
                 <CardHeader>
                   <h5 className="card-category">Crime Statistics</h5>
-                  <CardTitle tag="h4">Crime By Categories</CardTitle>
+                  <CardTitle tag="h4">Keyword Categories</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
