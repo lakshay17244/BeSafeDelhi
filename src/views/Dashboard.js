@@ -131,7 +131,7 @@ class Dashboard extends React.Component {
               <Card className="card-chart">
                 <CardHeader>
                   <h5 className="card-category">Daywise Analysis</h5>
-                  <CardTitle tag="h4">Tweets Last Week</CardTitle>
+                  <CardTitle tag="h4">Most Recent Tweets</CardTitle>
                   {/* <UncontrolledDropdown>
                     <DropdownToggle
                       className="btn-round btn-outline-default btn-icon"
