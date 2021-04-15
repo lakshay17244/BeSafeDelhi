@@ -23,7 +23,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/now-ui-dashboard.scss?v1.4.0";
 import "assets/css/demo.css";
-
+// import 'node_modules/leaflet-geosearch/dist/geosearch.css';
 import AdminLayout from "layouts/Admin.js";
 
 const hist = createBrowserHistory();

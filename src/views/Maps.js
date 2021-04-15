@@ -20,21 +20,16 @@
 
 */
 import React, { useEffect, useState } from "react";
-// react plugin used to create google maps
-// import {
-//   withScriptjs,
-//   withGoogleMap,
-//   GoogleMap,
-//   Marker,
-// } from "react-google-maps";
-
 import _ from 'lodash';
-import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet'
+
 // reactstrap components
 import { Row, Col, Card, CardHeader, CardBody } from "reactstrap";
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 import fullData from '../data'
+
+import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch'
+import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet'
 
 // let data = [
 //   {
@@ -5280,12 +5275,28 @@ const highlightblue = '#003366'
 const circleColour = redfill
 const circleHighlight = highlightred
 
+const SearchControl = (props) => {
+  const map = useMap();
+
+  useEffect(() => {
+    const searchControl = new GeoSearchControl({
+      provider: props.provider,
+      ...props,
+    });
+
+    map.addControl(searchControl);
+    return () => map.removeControl(searchControl);
+  }, [props]);
+
+  return null;
+};
+
 const FullScreenMap = () => {
   // console.log(fullData)
   const [Data, SetData] = useState([])
 
   useEffect(() => {
-    
+
     let newData = _.groupBy(fullData, el => el.Locations);
     const objArray = [];
     Object.keys(newData).forEach(key => objArray.push({
@@ -5309,7 +5320,7 @@ const FullScreenMap = () => {
               <CardHeader className='text-center text-muted'>Delhi-NCR Crime Heatmap</CardHeader>
               <CardBody>
                 <div>
-                  <MapContainer style={{ height: "600px" }} center={[28.692333, 77.238970]} zoom={11} scrollWheelZoom={false}>
+                  <MapContainer style={{ height: "600px" }} center={[28.692333, 77.238970]} zoom={11} scrollWheelZoom={true}>
                     <TileLayer
                       attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -5349,6 +5360,15 @@ const FullScreenMap = () => {
                         )
                       })
                     }
+                    <SearchControl
+                      provider={new OpenStreetMapProvider({
+                        params: {
+                          'accept-language': 'en', // render results in English
+                          countrycodes: 'in', // limit search results to Canada & United States
+                        },
+                      })}
+                      style='bar'
+                    />
                   </MapContainer>
                 </div>
               </CardBody>

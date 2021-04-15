@@ -160,7 +160,7 @@ class Header extends React.Component {
             navbar
             className="justify-content-end"
           >
-            <form>
+            {/* <form>
               <InputGroup className="no-border">
                 <Input placeholder="Search..." />
                 <InputGroupAddon addonType="append">
@@ -169,7 +169,7 @@ class Header extends React.Component {
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
-            </form>
+            </form> */}
             <Nav navbar>
               {/* <NavItem>
                 <Link to="#pablo" className="nav-link">
