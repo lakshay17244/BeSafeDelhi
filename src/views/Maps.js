@@ -5291,18 +5291,48 @@ const SearchControl = (props) => {
   return null;
 };
 
+const groupCrimes = (name) => {
+  let criminal_intent = ["crime", "criminal", "criminals", "arrest", "arrested", "arresting", "extortion", "dacoit", "dacoits", "illegal"]
+  let murder = ["murder","murders", "murdered", "murderer", "kill", "killed", "assassinate", "slaughter", "shooter", "shooters", "shoot","shooting"]
+  let theft = ["steal", "theft", "thief", "thieves", "burglar", "burglary", "snatcher", "snatchers", "snatching", "snatch", "snatched", "robber", "robbers","robbed", "bootlegger", "bootleggers", "pickpocket", "pick pocket"]
+  let drugs = ["drug", "drugs", "peddlers", "peddler"]
+  if (criminal_intent.includes(_.toLower(name))) {
+    return 'Criminal Intent'
+  }
+  if (murder.includes(_.toLower(name))) {
+    return 'Murder'
+  }
+  if (theft.includes(_.toLower(name))) {
+    return 'Theft'
+  }
+  if (drugs.includes(_.toLower(name))) {
+    return 'Peddler'
+  }
+  console.log(name)
+  return ''
+}
+
 const FullScreenMap = () => {
   // console.log(fullData)
   const [Data, SetData] = useState([])
 
   useEffect(() => {
+    let groupedData = fullData.map(el => (
+      {
+        'Locations': el.Locations,
+        'Crime': groupCrimes(el.Crime),
+        'lat': el.lat,
+        'long': el.long,
+        'Created At': el['Created At']
+      }))
 
-    let newData = _.groupBy(fullData, el => el.Locations);
+    let newData = _.groupBy(groupedData, el => el.Locations);
     const objArray = [];
     Object.keys(newData).forEach(key => objArray.push({
       name: key,
       crimeReport: newData[key]
     }));
+    console.log(objArray)
     SetData(objArray)
     return () => {
 
