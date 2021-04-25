@@ -121,7 +121,7 @@ const members = [
     'linkedin': 'https://www.linkedin.com/in/sounak-gupta-1b23831a1/',
     'github': '',
     'email': 'sounak17317@iiitd.ac.in',
-    'picture': 'default-avatar.png'
+    'picture': 'sounak.jpeg'
   },
   {
     'name': 'Sejal Singh',
