@@ -30,6 +30,8 @@ import fullData from '../data'
 
 import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch'
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet'
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 // let data = [
 //   {
@@ -5274,6 +5276,8 @@ const highlightblue = '#003366'
 
 const circleColour = redfill
 const circleHighlight = highlightred
+const animatedComponents = makeAnimated();
+
 
 const SearchControl = (props) => {
   const map = useMap();
@@ -5293,8 +5297,8 @@ const SearchControl = (props) => {
 
 const groupCrimes = (name) => {
   let criminal_intent = ["crime", "criminal", "criminals", "arrest", "arrested", "arresting", "extortion", "dacoit", "dacoits", "illegal"]
-  let murder = ["murder","murders", "murdered", "murderer", "kill", "killed", "assassinate", "slaughter", "shooter", "shooters", "shoot","shooting"]
-  let theft = ["steal", "theft", "thief", "thieves", "burglar", "burglary", "snatcher", "snatchers", "snatching", "snatch", "snatched", "robber", "robbers","robbed", "bootlegger", "bootleggers", "pickpocket", "pick pocket"]
+  let murder = ["murder", "murders", "murdered", "murderer", "kill", "killed", "assassinate", "slaughter", "shooter", "shooters", "shoot", "shooting"]
+  let theft = ["steal", "theft", "thief", "thieves", "burglar", "burglary", "snatcher", "snatchers", "snatching", "snatch", "snatched", "robber", "robbers", "robbed", "bootlegger", "bootleggers", "pickpocket", "pick pocket"]
   let drugs = ["drug", "drugs", "peddlers", "peddler"]
   if (criminal_intent.includes(_.toLower(name))) {
     return 'Criminal Intent'
@@ -5308,13 +5312,26 @@ const groupCrimes = (name) => {
   if (drugs.includes(_.toLower(name))) {
     return 'Peddler'
   }
-  console.log(name)
+  // console.log(name)
   return ''
 }
 
+const crimeOptions = [
+  { value: 'Criminal Intent', label: 'Criminal Intent' },
+  { value: 'Murder', label: 'Murder' },
+  { value: 'Theft', label: 'Theft' },
+  { value: 'Peddler', label: 'Peddler' }
+]
+
 const FullScreenMap = () => {
-  // console.log(fullData)
   const [Data, SetData] = useState([])
+  const [selected, setSelected] = React.useState([
+    crimeOptions[0],
+    crimeOptions[1],
+    crimeOptions[2],
+    crimeOptions[3],
+  ]);
+
 
   useEffect(() => {
     let groupedData = fullData.map(el => (
@@ -5332,7 +5349,7 @@ const FullScreenMap = () => {
       name: key,
       crimeReport: newData[key]
     }));
-    console.log(objArray)
+    // console.log(objArray)
     SetData(objArray)
     return () => {
 
@@ -5344,6 +5361,25 @@ const FullScreenMap = () => {
 
       <PanelHeader size="sm" />
       <div className="content">
+        <Row className='justify-content-center'>
+          <Col className='my-5' xs={12} md={8}>
+            <Select
+              styles={{
+                menu: provided => ({ ...provided, zIndex: 9999 })
+              }}
+              defaultValue={[crimeOptions[0]]}
+              isMulti
+              name="colors"
+              components={animatedComponents}
+              options={crimeOptions}
+              value={selected}
+              onChange={e => setSelected(e)}
+              className="basic-multi-select"
+              classNamePrefix="select"
+              placeholder='Filter By Crime...'
+            />
+          </Col>
+        </Row>
         <Row>
           <Col xs={12}>
             <Card>
@@ -5357,37 +5393,47 @@ const FullScreenMap = () => {
                     />
                     {
                       Data?.map((ele, ind) => {
-                        let weightOfCircle = ele['crimeReport'].length / maxReports
-                        let nameOfPlace = _.startCase(_.toLower(ele['name'].slice(0, -6)))
-                        let crimeCountsTemp = _.groupBy(ele['crimeReport'], el => el.Crime)
+                        let currentFilter = selected.map(e => _.toLower(e.label))
+                        let filteredEle = {}
+                        filteredEle.name = ele.name
+                        filteredEle.crimeReport = ele.crimeReport.filter(e => {
+                          return currentFilter.includes(_.lowerCase(e.Crime))
+                        })
+
+                        let weightOfCircle = filteredEle['crimeReport'].length / maxReports
+                        let nameOfPlace = _.startCase(_.toLower(filteredEle['name'].slice(0, -6)))
+                        let crimeCountsTemp = _.groupBy(filteredEle['crimeReport'], el => el.Crime)
                         let crimeCounts = [];
-                        Object.keys(crimeCountsTemp).forEach(key => crimeCounts.push({
-                          crimeType: key,
-                          crimeReport: crimeCountsTemp[key].length
-                        }));
-                        return (
-                          <div key={ind}>
-                            <Circle center={[ele['crimeReport'][0].lat, ele['crimeReport'][0].long]}
-                              pathOptions={{ fillColor: circleColour, fillOpacity: weightOfCircle, color: circleHighlight, weight: 3, opacity: 0.5 }} radius={1500} >
-                              <Popup>
-                                <h6 className='mt-2'>{nameOfPlace}</h6>
-                                <b>Total Reports - {ele['crimeReport'].length}</b>
-                                <br />
-                                <br />
-                                {
-                                  crimeCounts.map((el, ind) => {
-                                    return (
-                                      <div key={ind}>
-                                        {_.startCase(_.toLower(el.crimeType))} - {el.crimeReport}
-                                        <br />
-                                      </div>
-                                    )
-                                  })
-                                }
-                              </Popup>
-                            </Circle>
-                          </div>
-                        )
+                        Object.keys(crimeCountsTemp).forEach(key => {
+                          crimeCounts.push({
+                            crimeType: key,
+                            crimeReport: crimeCountsTemp[key].length
+                          })
+                        })
+                        if (!_.isEmpty(filteredEle['crimeReport']))
+                          return (
+                            <div key={ind}>
+                              <Circle center={[filteredEle['crimeReport'][0].lat, filteredEle['crimeReport'][0].long]}
+                                pathOptions={{ fillColor: circleColour, fillOpacity: weightOfCircle, color: circleHighlight, weight: 3, opacity: 0.5 }} radius={1500} >
+                                <Popup>
+                                  <h6 className='mt-2'>{nameOfPlace}</h6>
+                                  <b>Total Reports - {filteredEle['crimeReport'].length}</b>
+                                  <br />
+                                  <br />
+                                  {
+                                    crimeCounts.map((el, ind) => {
+                                      return (
+                                        <div key={ind}>
+                                          {_.startCase(_.toLower(el.crimeType))} - {el.crimeReport}
+                                          <br />
+                                        </div>
+                                      )
+                                    })
+                                  }
+                                </Popup>
+                              </Circle>
+                            </div>
+                          )
                       })
                     }
                     <SearchControl
@@ -5399,6 +5445,7 @@ const FullScreenMap = () => {
                       })}
                       style='bar'
                     />
+
                   </MapContainer>
                 </div>
               </CardBody>

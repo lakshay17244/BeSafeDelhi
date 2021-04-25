@@ -33,6 +33,101 @@ import {
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
+const members = [
+  {
+    'name': 'Pranshu Yadav',
+    'batch': 'CSAM 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/in/pranshu-yadav-63b30418b/',
+    'github': 'https://github.com/pranshu17254',
+    'email': 'pranshu17254@iiitd.ac.in',
+    'picture': 'pranshu.jpg'
+  },
+  {
+    'name': 'Kartik Rajpal',
+    'batch': 'ECE 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/',
+    'github': 'https://github.com/',
+    'email': 'kartik17157@iiitd.ac.in',
+    'picture': 'kartikr.jpg'
+  },
+  {
+    'name': 'Pavni Aggarwal',
+    'batch': 'CSAM 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/in/pavni-aggarwal-aa3759151',
+    'github': 'https://github.com/PavniAggarwal',
+    'email': 'pavniagg@gmail.com',
+    'picture': 'pavni.jfif'
+  },
+
+  {
+    'name': 'Lakshay Sharma',
+    'batch': 'CSAM 2021',
+    'description': 'Some bio text goes here...',
+    'linkedin': 'https://www.linkedin.com/in/voila81116/',
+    'github': 'https://github.com/lakshay17244',
+    'email': 'lakshay.sharma10@gmail.com',
+    'picture': 'lakshay.jfif'
+  },
+  {
+    'name': 'Dipanshu Yadav',
+    'batch': 'CSAM 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/in/dipanshu-yadav-aaa2ab186/',
+    'github': 'https://github.com/dipanshu17229',
+    'email': 'raoprinceyadav7@gmail.com',
+    'picture': 'dipanshu.jpg'
+  },
+  {
+    'name': 'Mohit Singh',
+    'batch': 'CSAM 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/in/mohit-singh-714b3616b/',
+    'github': 'https://github.com/mohit860',
+    'email': 'ms9480681@gmail.com',
+    'picture': 'mohit.jfif'
+  }
+  ,
+  {
+    'name': 'Aayush Baghel',
+    'batch': 'CSAM 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/in/aayush-baghel-50006b153/',
+    'github': 'https://github.com/',
+    'email': 'aayushkb@gmail.com',
+    'picture': 'aayush.jpg'
+  },
+  {
+    'name': 'Sounak Gupta',
+    'batch': 'CSD 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/in/sounak-gupta-1b23831a1/',
+    'github': 'https://github.com/',
+    'email': 'sounak17317@iiitd.ac.in',
+    'picture': 'default-avatar.png'
+  },
+  {
+    'name': 'Sejal Singh',
+    'batch': 'CSB 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/',
+    'github': 'https://github.com/',
+    'email': 'sejal18413@iiitd.ac.in',
+    'picture': 'default-avatar.png'
+  },
+  {
+    'name': 'Kartik Verma',
+    'batch': 'ECE 2021',
+    'description': 'You were my cup of tea, but I drink coffee now',
+    'linkedin': 'https://www.linkedin.com/',
+    'github': 'https://github.com/',
+    'email': 'kartik17158@iiitd.ac.in',
+    'picture': 'default-avatar.png'
+  }
+]
+
 class User extends React.Component {
   render() {
     return (
@@ -40,7 +135,7 @@ class User extends React.Component {
         <PanelHeader size="sm" />
         <div className="content">
           <Row>
-            <Col md="8">
+            {/* <Col md="8">
               <Card>
                 <CardHeader>
                   <h5 className="title">Edit Profile</h5>
@@ -159,61 +254,70 @@ class User extends React.Component {
                 </CardBody>
               </Card>
             </Col>
-            <Col md="4">
-              <Card className="card-user">
-                <div className="image">
-                  <img alt="..." src={require("assets/img/bg5.jpg")} />
-                </div>
-                <CardBody>
-                  <div className="author">
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img
-                        alt="..."
-                        className="avatar border-gray"
-                        src={require("assets/img/mike.jpg")}
-                      />
-                      <h5 className="title">Mike Andrew</h5>
-                    </a>
-                    <p className="description">michael24</p>
-                  </div>
-                  <p className="description text-center">
-                    "Lamborghini Mercy <br />
-                    Your chick she so thirsty <br />
-                    I'm in that two seat Lambo"
-                  </p>
-                </CardBody>
-                <hr />
-                <div className="button-container">
-                  <Button
-                    className="btn-neutral btn-icon btn-round"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="lg"
-                  >
-                    <i className="fab fa-facebook-f" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-icon btn-round"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="lg"
-                  >
-                    <i className="fab fa-twitter" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-icon btn-round"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="lg"
-                  >
-                    <i className="fab fa-google-plus-g" />
-                  </Button>
-                </div>
-              </Card>
-            </Col>
+            */}
+            {members.map(user => {
+              return (
+                <Col sm='6' md="4" lg='4'>
+                  <Card className="card-user">
+                    <div className="image">
+                      <img alt="..." src={require("assets/img/bg11.jpg")} />
+                    </div>
+                    <CardBody style={{ 'min-height': '100px' }}>
+                      <div className="author">
+                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                          <img
+                            alt="..."
+                            className="avatar border-gray"
+                            src={require('assets/img/' + user.picture)}
+                          />
+                          <h5 className="title">{user.name}</h5>
+                        </a>
+                        <p className="description"><b><i>{user.batch}</i></b></p>
+                      </div>
+                      {/* <p className="description text-center">
+                        {user.description}
+                      </p> */}
+                    </CardBody>
+                    <hr />
+                    <div className="button-container">
+                      <Button
+                        className="btn-neutral btn-icon btn-round"
+                        color="default"
+                        href={user.linkedin}
+                        target="_blank"
+                        // onClick={(e) => e.preventDefault()}
+                        size="lg"
+                      >
+                        <i className="fab fa-linkedin" />
+                      </Button>
+                      <Button
+                        className="btn-neutral btn-icon btn-round"
+                        color="default"
+                        href={user.github}
+                        // onClick={(e) => e.preventDefault()}
+                        target="_blank"
+                        size="lg"
+                      >
+                        <i className="fab fa-github" />
+                      </Button>
+
+                      <Button
+                        className="btn-neutral btn-icon btn-round"
+                        color="default"
+                        href={`mailto: ${user.email}`}
+                        target="_blank"
+                        // onClick={(e) => e.preventDefault()}
+                        size="lg"
+                      >
+                        <i className="fab fa-google-plus-g" />
+                      </Button>
+
+                    </div>
+                  </Card>
+                </Col>
+              )
+            })}
+
           </Row>
         </div>
       </>

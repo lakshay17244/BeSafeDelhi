@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 
@@ -50,89 +50,52 @@ import {
   dashboardAllProductsChart,
 } from "variables/charts.js";
 
-class Dashboard extends React.Component {
-  render() {
-    return (
-      <>
-        <PanelHeader
-          size="lg"
-          content={
-            <Line
-              data={dashboardPanelChart.data}
-              options={dashboardPanelChart.options}
-            />
-          }
-        />
-        <div className="content">
-          <Row>
-            <Col xs={12} md={12}>
-              <Card className="card-chart">
-                <CardHeader>
-                  <h5 className="card-category">Crime Statistics</h5>
-                  <CardTitle tag="h4">Keyword Categories</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <div className="chart-area">
-                    <Bar
-                      data={dashboard24HoursPerformanceChart.data}
-                      options={dashboard24HoursPerformanceChart.options}
-                    />
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div className="stats">
-                    <i className="now-ui-icons arrows-1_refresh-69" /> Just Updated
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-           
-           
-            <Col xs={12} md={6}>
-              <Card className="card-chart">
-                <CardHeader>
-                  <h5 className="card-category">Number of tweets</h5>
-                  <CardTitle tag="h4">Top 10 Crime Hotspots</CardTitle>
-                  {/* <UncontrolledDropdown>
-                    <DropdownToggle
-                      className="btn-round btn-outline-default btn-icon"
-                      color="default"
-                    >
-                      <i className="now-ui-icons loader_gear" />
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another Action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                      <DropdownItem className="text-danger">
-                        Remove data
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown> */}
-                </CardHeader>
-                <CardBody>
-                  <div className="chart-area">
-                    <Bar
-                      data={dashboardShippedProductsChart.data}
-                      options={dashboardShippedProductsChart.options}
-                    />
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div className="stats">
-                    <i className="now-ui-icons arrows-1_refresh-69" /> Just
-                    Updated
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
 
-            <Col xs={12} md={6}>
-              <Card className="card-chart">
-                <CardHeader>
-                  <h5 className="card-category">Daywise Analysis</h5>
-                  <CardTitle tag="h4">Most Recent Tweets</CardTitle>
-                  {/* <UncontrolledDropdown>
+
+const Dashboard = () => {
+  const [timelineSelected, setTimelineSelected] = useState('Last Month')
+  return (
+    <>
+      <PanelHeader
+        size="lg"
+        content={
+          <Line
+            data={dashboardPanelChart.data}
+            options={dashboardPanelChart.options}
+          />
+        }
+      />
+      <div className="content">
+        <Row>
+          <Col xs={12} md={12}>
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">Crime Statistics</h5>
+                <CardTitle tag="h4">Keyword Categories</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                  <Bar
+                    data={dashboard24HoursPerformanceChart.data}
+                    options={dashboard24HoursPerformanceChart.options}
+                  />
+                </div>
+              </CardBody>
+              <CardFooter>
+                <div className="stats">
+                  <i className="now-ui-icons arrows-1_refresh-69" /> Just Updated
+                  </div>
+              </CardFooter>
+            </Card>
+          </Col>
+
+
+          <Col xs={12} md={6}>
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">Number of tweets</h5>
+                <CardTitle tag="h4">Top 10 Crime Hotspots</CardTitle>
+                {/* <UncontrolledDropdown>
                     <DropdownToggle
                       className="btn-round btn-outline-default btn-icon"
                       color="default"
@@ -148,29 +111,67 @@ class Dashboard extends React.Component {
                       </DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown> */}
-                </CardHeader>
-                <CardBody>
-                  <div className="chart-area">
-                    <Line
-                      data={dashboardAllProductsChart.data}
-                      options={dashboardAllProductsChart.options}
-                    />
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div className="stats">
-                    <i className="now-ui-icons arrows-1_refresh-69" /> Just
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                  <Bar
+                    data={dashboardShippedProductsChart.data}
+                    options={dashboardShippedProductsChart.options}
+                  />
+                </div>
+              </CardBody>
+              <CardFooter>
+                <div className="stats">
+                  <i className="now-ui-icons arrows-1_refresh-69" /> Just
                     Updated
                   </div>
-                </CardFooter>
-              </Card>
-            </Col>
-          
-          
-          </Row>
-          <Row>
-            
-            {/* <Col xs={12} md={6}>
+              </CardFooter>
+            </Card>
+          </Col>
+
+          <Col xs={12} md={6}>
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">Daywise Analysis</h5>
+                <CardTitle tag="h4">Most Recent Tweets</CardTitle>
+                <UncontrolledDropdown>
+                  <DropdownToggle
+                    className="btn-round btn-outline-default btn-icon"
+                    color="default"
+                  >
+                    <i className="now-ui-icons design_bullet-list-67" />
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem onClick={() => setTimelineSelected('Last Month')}>Last Month</DropdownItem>
+                    <DropdownItem onClick={() => setTimelineSelected('Last 3 Months')}>Last 3 months</DropdownItem>
+                    <DropdownItem onClick={() => setTimelineSelected('Last 6 Months')}>Last 6 Months</DropdownItem>
+                    
+                    {/* <DropdownItem className="text-danger">
+                        Remove data
+                      </DropdownItem> */}
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                  <Line
+                    data={dashboardAllProductsChart.data(timelineSelected)}
+                    options={dashboardAllProductsChart.options}
+                  />
+                </div>
+              </CardBody>
+              <CardFooter>
+                <div className="stats">
+                  <i className="now-ui-icons travel_info" /> {timelineSelected}</div>
+              </CardFooter>
+            </Card>
+          </Col>
+
+
+        </Row>
+        <Row>
+
+          {/* <Col xs={12} md={6}>
               <Card className="card-tasks">
                 <CardHeader>
                   <h5 className="card-category">Backend Development</h5>
@@ -379,12 +380,12 @@ class Dashboard extends React.Component {
               </Card>
             </Col>
            */}
-          
-          </Row>
-        </div>
-      </>
-    );
-  }
+
+        </Row>
+      </div>
+    </>
+  );
+
 }
 
 export default Dashboard;

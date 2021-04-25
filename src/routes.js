@@ -53,13 +53,13 @@ var dashRoutes = [
   //   component: Notifications,
   //   layout: "/admin",
   // },
-  // {
-  //   path: "/user-page",
-  //   name: "User Profile",
-  //   icon: "users_single-02",
-  //   component: UserPage,
-  //   layout: "/admin",
-  // },
+  {
+    path: "/user-page",
+    name: "About Us",
+    icon: "users_single-02",
+    component: UserPage,
+    layout: "/admin",
+  },
   // {
   //   path: "/extended-tables",
   //   name: "Table List",

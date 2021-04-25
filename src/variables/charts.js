@@ -280,7 +280,7 @@ const dashboardShippedProductsChart = {
     var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
     gradientStroke.addColorStop(0, "#80b6f4");
     gradientStroke.addColorStop(1, chartColor);
-    
+
     // gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     // gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.40)");
 
@@ -355,64 +355,85 @@ const dashboardShippedProductsChart = {
 // #############################
 
 const dashboardAllProductsChart = {
-  data: (canvas) => {
-    var ctx = canvas.getContext("2d");
-    var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
-    gradientStroke.addColorStop(0, "#18ce0f");
-    gradientStroke.addColorStop(1, chartColor);
-    var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    gradientFill.addColorStop(1, hexToRGB("#18ce0f", 0.4));
+  data:
+    (timeRange) =>
 
-    const fullData = require('../data')
-    var _ = require('lodash');
-    const moment = require('moment')
-    // console.log('===', fullData)
-    const monthName = item => moment(item['Created At']).format('ll');
-    const result = _.groupBy(fullData, monthName);
+      (canvas) => {
+        var ctx = canvas.getContext("2d");
+        var gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
+        gradientStroke.addColorStop(0, "#18ce0f");
+        gradientStroke.addColorStop(1, chartColor);
+        var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
+        gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
+        gradientFill.addColorStop(1, hexToRGB("#18ce0f", 0.4));
 
-    const monthlyTweets = [];
-    Object.keys(result).forEach(key => monthlyTweets.push({
-      date: key,
-      Tweets: result[key].length
-    }));
+        const fullData = require('../data')
+        var _ = require('lodash');
+        const moment = require('moment')
+        // console.log('===', fullData)
+        const monthName = item => moment(item['Created At']).format('ll');
+        const result = _.groupBy(fullData, monthName);
 
-    monthlyTweets.sort((a, b) => {
-      var dateA = new Date(a.date), dateB = new Date(b.date)
-      return dateA - dateB
-    });
+        let monthlyTweets = [];
+        Object.keys(result).forEach(key => monthlyTweets.push({
+          date: key,
+          Tweets: result[key].length
+        }));
 
-    let months = []
-    let numberOfTweets = []
+        monthlyTweets.sort((a, b) => {
+          let dateA = new Date(a.date), dateB = new Date(b.date)
+          return dateA - dateB
+        });
 
-    monthlyTweets.forEach(el => {
-      // let quarter = moment(el.date).utc().quarter() + moment(el.date).format(', YYYY')
-      months.push(el.date)
-      numberOfTweets.push(el.Tweets)
-    })
-    months = months.slice(Math.max(months.length - 7, 0))
-    numberOfTweets = numberOfTweets.slice(Math.max(numberOfTweets.length - 7, 0))
+        let timeDict = {
+          'Last Month':30,
+          'Last 3 Months': 90,
+          'Last 6 Months': 180
+        }
 
-    return {
-      labels: months,
-      datasets: [
-        {
-          label: "Tweets",
-          borderColor: "#18ce0f",
-          pointBorderColor: "#FFF",
-          pointBackgroundColor: "#18ce0f",
-          pointBorderWidth: 2,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 1,
-          pointRadius: 4,
-          fill: true,
-          backgroundColor: gradientFill,
-          borderWidth: 2,
-          data: numberOfTweets,
-        },
-      ],
-    };
-  },
+        let timeRangeInt = timeDict[timeRange]
+
+        let startDate = moment().subtract(timeRangeInt, 'd').format('ll');
+        let endDate = moment().endOf('day').format('ll');
+        console.log(startDate)
+        console.log(endDate)
+
+        monthlyTweets = _.filter(monthlyTweets,
+          (each) => {
+            return moment(each.date).isBetween(startDate, endDate);
+          });
+
+        let months = []
+        let numberOfTweets = []
+
+        monthlyTweets.forEach(el => {
+          // let quarter = moment(el.date).utc().quarter() + moment(el.date).format(', YYYY')
+          months.push(el.date)
+          numberOfTweets.push(el.Tweets)
+        })
+        // months = months.slice(Math.max(months.length - 7, 0))
+        // numberOfTweets = numberOfTweets.slice(Math.max(numberOfTweets.length - 7, 0))
+
+        return {
+          labels: months,
+          datasets: [
+            {
+              label: "Tweets",
+              borderColor: "#18ce0f",
+              pointBorderColor: "#FFF",
+              pointBackgroundColor: "#18ce0f",
+              pointBorderWidth: 2,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 1,
+              pointRadius: 4,
+              fill: true,
+              backgroundColor: gradientFill,
+              borderWidth: 2,
+              data: numberOfTweets,
+            },
+          ],
+        };
+      },
   options: gradientChartOptionsConfigurationWithNumbersAndGrid,
 };
 
