@@ -56,7 +56,7 @@ const members = [
     'linkedin': 'https://www.linkedin.com/in/pranshu-yadav-63b30418b/',
     'github': 'https://github.com/pranshu17254',
     'email': 'pranshu17254@iiitd.ac.in',
-    'picture': 'pranshu.jpg'
+    'picture': 'pranshu.jpeg'
   },
   {
     'name': 'Kartik Rajpal',
