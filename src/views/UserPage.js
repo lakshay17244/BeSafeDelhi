@@ -33,6 +33,21 @@ import {
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.js";
 
+
+const randomImages = [
+  require('assets/img/bg1.jpg'),
+  require('assets/img/bg2.jpg'),
+  require('assets/img/bg3.jpg'),
+  require('assets/img/bg4.jpg'),
+  require('assets/img/bg5.jpg'),
+  require('assets/img/bg6.jpg'),
+  require('assets/img/bg7.jpg'),
+  ];
+
+const getBackground = () => {
+  return randomImages[Math.floor(Math.random() * 7)]
+}
+
 const members = [
   {
     'name': 'Pranshu Yadav',
@@ -260,7 +275,7 @@ class User extends React.Component {
                 <Col sm='6' md="4" lg='4'>
                   <Card className="card-user">
                     <div className="image">
-                      <img alt="..." src={require("assets/img/bg11.jpg")} />
+                      <img alt="..." src={require('assets/img/bg2.jpg')} />
                     </div>
                     <CardBody style={{ 'min-height': '100px' }}>
                       <div className="author">
