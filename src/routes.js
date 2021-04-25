@@ -55,7 +55,7 @@ var dashRoutes = [
   // },
   {
     path: "/user-page",
-    name: "About Us",
+    name: "Our Team",
     icon: "users_single-02",
     component: UserPage,
     layout: "/admin",

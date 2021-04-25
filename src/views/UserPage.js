@@ -47,8 +47,8 @@ const members = [
     'name': 'Kartik Rajpal',
     'batch': 'ECE 2021',
     'description': 'You were my cup of tea, but I drink coffee now',
-    'linkedin': 'https://www.linkedin.com/',
-    'github': 'https://github.com/',
+    'linkedin': '',
+    'github': '',
     'email': 'kartik17157@iiitd.ac.in',
     'picture': 'kartikr.jpg'
   },
@@ -95,7 +95,7 @@ const members = [
     'batch': 'CSAM 2021',
     'description': 'You were my cup of tea, but I drink coffee now',
     'linkedin': 'https://www.linkedin.com/in/aayush-baghel-50006b153/',
-    'github': 'https://github.com/',
+    'github': '',
     'email': 'aayushkb@gmail.com',
     'picture': 'aayush.jpg'
   },
@@ -104,7 +104,7 @@ const members = [
     'batch': 'CSD 2021',
     'description': 'You were my cup of tea, but I drink coffee now',
     'linkedin': 'https://www.linkedin.com/in/sounak-gupta-1b23831a1/',
-    'github': 'https://github.com/',
+    'github': '',
     'email': 'sounak17317@iiitd.ac.in',
     'picture': 'default-avatar.png'
   },
@@ -112,17 +112,17 @@ const members = [
     'name': 'Sejal Singh',
     'batch': 'CSB 2021',
     'description': 'You were my cup of tea, but I drink coffee now',
-    'linkedin': 'https://www.linkedin.com/',
-    'github': 'https://github.com/',
-    'email': 'sejal18413@iiitd.ac.in',
-    'picture': 'default-avatar.png'
+    'linkedin': '',
+    'github': 'https://github.com/sejalsingh00',
+    'email': 'sejallaur@gmail.com',
+    'picture': 'sejal.jpg'
   },
   {
     'name': 'Kartik Verma',
     'batch': 'ECE 2021',
     'description': 'You were my cup of tea, but I drink coffee now',
-    'linkedin': 'https://www.linkedin.com/',
-    'github': 'https://github.com/',
+    'linkedin': '',
+    'github': '',
     'email': 'kartik17158@iiitd.ac.in',
     'picture': 'default-avatar.png'
   }
@@ -280,37 +280,45 @@ class User extends React.Component {
                     </CardBody>
                     <hr />
                     <div className="button-container">
-                      <Button
-                        className="btn-neutral btn-icon btn-round"
-                        color="default"
-                        href={user.linkedin}
-                        target="_blank"
-                        // onClick={(e) => e.preventDefault()}
-                        size="lg"
-                      >
-                        <i className="fab fa-linkedin" />
-                      </Button>
-                      <Button
-                        className="btn-neutral btn-icon btn-round"
-                        color="default"
-                        href={user.github}
-                        // onClick={(e) => e.preventDefault()}
-                        target="_blank"
-                        size="lg"
-                      >
-                        <i className="fab fa-github" />
-                      </Button>
 
-                      <Button
-                        className="btn-neutral btn-icon btn-round"
-                        color="default"
-                        href={`mailto: ${user.email}`}
-                        target="_blank"
-                        // onClick={(e) => e.preventDefault()}
-                        size="lg"
-                      >
-                        <i className="fab fa-google-plus-g" />
-                      </Button>
+                      {user.linkedin &&
+                        <Button
+                          className="btn-neutral btn-icon btn-round"
+                          color="default"
+                          href={user.linkedin}
+                          target="_blank"
+                          // onClick={(e) => e.preventDefault()}
+                          size="lg"
+                        >
+                          <i className="fab fa-linkedin" />
+                        </Button>
+                      }
+                      {
+                        user.github &&
+                        <Button
+                          className="btn-neutral btn-icon btn-round"
+                          color="default"
+                          href={user.github}
+                          // onClick={(e) => e.preventDefault()}
+                          target="_blank"
+                          size="lg"
+                        >
+                          <i className="fab fa-github" />
+                        </Button>
+                      }
+
+                      {user.email &&
+                        <Button
+                          className="btn-neutral btn-icon btn-round"
+                          color="default"
+                          href={`mailto: ${user.email}`}
+                          target="_blank"
+                          // onClick={(e) => e.preventDefault()}
+                          size="lg"
+                        >
+                          <i className="fab fa-google-plus-g" />
+                        </Button>}
+
 
                     </div>
                   </Card>
